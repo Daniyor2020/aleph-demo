@@ -1,13 +1,16 @@
 import * as Device from 'expo-device';
 import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AnimatedIcon } from '@/components/animated-icon';
 import { HintRow } from '@/components/hint-row';
+import { ScreenLayout } from '@/components/layout';
+import { AppButton } from '@/components/ui';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { WebBadge } from '@/components/web-badge';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { useThemeColors } from '@/hooks/use-theme-colors';
+import { spacing } from '@/theme/spacing';
 
 function getDevMenuHint() {
   if (Platform.OS === 'web') {
@@ -29,57 +32,57 @@ function getDevMenuHint() {
 }
 
 export default function HomeScreen() {
+  const themeColors = useThemeColors();
+
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedText type="code" style={styles.code}>
-          get started
+    <ScreenLayout
+      backgroundColor={themeColors.background}
+      contentContainerStyle={styles.screenContent}>
+      <ThemedView style={styles.heroSection}>
+        <AnimatedIcon />
+        <ThemedText type="title" style={styles.title}>
+          Welcome to&nbsp;Expo
         </ThemedText>
+      </ThemedView>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+      <ThemedText type="code" style={styles.code}>
+        get started
+      </ThemedText>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+      <ThemedView type="backgroundElement" style={styles.stepContainer}>
+        <HintRow
+          title="Try editing"
+          hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
+        />
+        <HintRow title="Dev tools" hint={getDevMenuHint()} />
+        <HintRow
+          title="Fresh start"
+          hint={<ThemedText type="code">npm run reset-project</ThemedText>}
+        />
+      </ThemedView>
+
+      <AppButton label="Get Started" containerStyle={styles.ctaButton} />
+
+      {Platform.OS === 'web' && <WebBadge />}
+    </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screenContent: {
     flex: 1,
     justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
     alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
+    gap: spacing.md,
+    paddingBottom: BottomTabInset + spacing.md,
     maxWidth: MaxContentWidth,
+    alignSelf: 'center',
+    width: '100%',
   },
   heroSection: {
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    paddingHorizontal: Spacing.four,
     gap: Spacing.four,
   },
   title: {
@@ -94,5 +97,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.four,
     borderRadius: Spacing.four,
+  },
+  ctaButton: {
+    alignSelf: 'stretch',
   },
 });

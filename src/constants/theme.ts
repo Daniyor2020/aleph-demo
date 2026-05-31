@@ -1,26 +1,30 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * Backward-compatible theme bridge for existing template components.
+ * New code should import from `@/theme` directly.
  */
 
 import '@/global.css';
 
 import { Platform } from 'react-native';
 
+import { colors, colorsDark } from '@/theme/colors';
+import { BottomTabInset, MaxContentWidth } from '@/theme/layout';
+import { spacing } from '@/theme/spacing';
+
 export const Colors = {
   light: {
-    text: '#000000',
-    background: '#ffffff',
-    backgroundElement: '#F0F0F3',
-    backgroundSelected: '#E0E1E6',
-    textSecondary: '#60646C',
+    text: colors.text,
+    background: colors.background,
+    backgroundElement: colors.surface,
+    backgroundSelected: colors.border,
+    textSecondary: colors.textSecondary,
   },
   dark: {
-    text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
+    text: colorsDark.text,
+    background: colorsDark.background,
+    backgroundElement: colorsDark.surface,
+    backgroundSelected: colorsDark.border,
+    textSecondary: colorsDark.textSecondary,
   },
 } as const;
 
@@ -28,13 +32,9 @@ export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
 
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
     sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
     serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
     rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
     mono: 'ui-monospace',
   },
   default: {
@@ -51,15 +51,15 @@ export const Fonts = Platform.select({
   },
 });
 
+/** @deprecated Use `spacing` from `@/theme` instead */
 export const Spacing = {
-  half: 2,
-  one: 4,
-  two: 8,
-  three: 16,
-  four: 24,
-  five: 32,
+  half: spacing.xs / 2,
+  one: spacing.xs,
+  two: spacing.sm,
+  three: spacing.md,
+  four: spacing.lg,
+  five: spacing.xl,
   six: 64,
 } as const;
 
-export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
-export const MaxContentWidth = 800;
+export { BottomTabInset, MaxContentWidth };
