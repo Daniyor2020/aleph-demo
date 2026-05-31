@@ -1,3 +1,1 @@
-// Global state (Zustand, Redux, etc.) when needed
-
-export {};
+export { useAuthStore } from './authStore';

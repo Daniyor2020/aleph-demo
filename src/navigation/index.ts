@@ -1,3 +1,1 @@
-// Navigation helpers and configuration (Expo Router routes live in src/app/)
-
-export {};
+export { routes, type AppRoute } from './routes';
