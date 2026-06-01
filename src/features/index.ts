@@ -1,4 +1,3 @@
-// Feature modules live here. Each feature may contain:
-// components/, hooks/, services/, screens/, types/
-
-export {};
+export * from './auth';
+export * from './home';
+export * from './profile';

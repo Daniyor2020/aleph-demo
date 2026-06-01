@@ -12,9 +12,8 @@ export default function ProtectedLayout() {
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="home" />
-      <Stack.Screen name="profile" />
-      <Stack.Screen name="settings" />
+      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="details/[id]" options={{ presentation: 'card' }} />
     </Stack>
   );
 }

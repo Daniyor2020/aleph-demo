@@ -1,4 +1,2 @@
-import { Platform } from 'react-native';
-
-export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
+/** Max content width for phones/tablets — keeps UI readable on large screens */
 export const MaxContentWidth = 800;

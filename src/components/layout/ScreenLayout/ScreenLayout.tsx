@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { colors } from '@/theme/colors';
+import { useThemeColors } from '@/hooks/use-theme-colors';
+import { MaxContentWidth } from '@/theme/layout';
 import { spacing } from '@/theme/spacing';
 
 export type ScreenLayoutProps = {
@@ -27,17 +28,21 @@ function ScreenLayoutComponent({
   scroll = false,
   keyboardAvoiding = false,
   disableHorizontalPadding = false,
-  backgroundColor = colors.background,
+  backgroundColor,
   contentContainerStyle,
 }: ScreenLayoutProps) {
+  const themeColors = useThemeColors();
+  const resolvedBackground = backgroundColor ?? themeColors.background;
+
   const containerStyle = useMemo(
-    () => [styles.container, { backgroundColor }],
-    [backgroundColor],
+    () => [styles.container, { backgroundColor: resolvedBackground }],
+    [resolvedBackground],
   );
 
   const contentStyle = useMemo(
     () => [
       styles.content,
+      styles.contentMaxWidth,
       disableHorizontalPadding ? styles.noHorizontalPadding : styles.horizontalPadding,
       contentContainerStyle,
     ],
@@ -84,6 +89,11 @@ const styles = StyleSheet.create({
   },
   content: {
     flexGrow: 1,
+  },
+  contentMaxWidth: {
+    width: '100%',
+    maxWidth: MaxContentWidth,
+    alignSelf: 'center',
   },
   horizontalPadding: {
     paddingHorizontal: spacing.md,

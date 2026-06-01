@@ -5,7 +5,6 @@ export const colors = {
   text: '#111827',
   textSecondary: '#6B7280',
   border: '#E5E7EB',
-  error: '#DC2626',
 } as const;
 
 export const colorsDark = {
@@ -15,7 +14,6 @@ export const colorsDark = {
   text: '#FFFFFF',
   textSecondary: '#B0B4BA',
   border: '#2E3135',
-  error: '#EF4444',
 } as const;
 
 export type ColorToken = keyof typeof colors;

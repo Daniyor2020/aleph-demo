@@ -1,23 +1,25 @@
 import { StyleSheet, View } from 'react-native';
 
 import { ScreenLayout } from '@/components/layout';
-import { AppText } from '@/components/ui';
+import { AppText, ThemeToggle } from '@/components/ui';
 import { useThemeColors } from '@/hooks/use-theme-colors';
 import { radius } from '@/theme/radius';
 import { spacing } from '@/theme/spacing';
 
-export default function SettingsScreen() {
+export function SettingsScreen() {
   const themeColors = useThemeColors();
 
   return (
-    <ScreenLayout
-      scroll
-      backgroundColor={themeColors.background}
-      contentContainerStyle={styles.content}>
+    <ScreenLayout scroll contentContainerStyle={styles.content}>
       <AppText variant="h2">Settings</AppText>
-      <View style={[styles.card, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
+      <ThemeToggle />
+      <View
+        style={[
+          styles.card,
+          { backgroundColor: themeColors.surface, borderColor: themeColors.border },
+        ]}>
         <AppText variant="body" color="textSecondary">
-          App preferences and configuration will live here.
+          More app preferences will live here.
         </AppText>
       </View>
     </ScreenLayout>
